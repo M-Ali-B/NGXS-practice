@@ -12,7 +12,7 @@ import { AppService } from './state/app.service';
 export class AppComponent {
   todo = "";
   title = "NGXS-practice";
-  list: Todo[];
+  list: string[];
   constructor(private store: Store, private appService: AppService) {
     this.store.dispatch(new AppFetchListAction());
     this.store.select(AppState.getTodoList).subscribe(res => {
@@ -24,7 +24,7 @@ export class AppComponent {
   onAddItem(){
 //this.appService.addTodoItem(this.todo);
 
-this.store.dispatch(new AppAddItemAction({'info':this.todo}));
+this.store.dispatch(new AppAddItemAction(this.todo));
 
   }
 }

@@ -7,5 +7,5 @@ export class AppFetchListAction {
 
 export class AppAddItemAction {
          static readonly type = "[App] Add Item";
-         constructor(public payload: Todo) {}
+         constructor(public payload: string) {}
        }

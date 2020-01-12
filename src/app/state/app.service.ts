@@ -5,21 +5,14 @@ import { Todo } from "./app.state";
   providedIn: "root"
 })
 export class AppService {
-  listOfTodos: Todo[] = [
-    {
-      "info": "debuging"
-    },
-    {
-      "info": "coding Time"
-    }
-  ];
+  listOfTodos: string[] = ["tomato" , "potato" ];
 
   constructor() {}
   getTodoList() {
     return this.listOfTodos;
   }
 
-  addTodoItem(todoItem: Todo) {
-    return this.listOfTodos.push(todoItem);
+  addTodoItem(todoItem: string) {
+     this.listOfTodos.push(todoItem);
   }
 }
