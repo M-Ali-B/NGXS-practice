@@ -1,7 +1,8 @@
 import { State, Action, StateContext, Selector } from "@ngxs/store";
 import { AppFetchListAction, AppAddItemAction } from "./app.actions";
 import { AppService } from "./app.service";
-
+import { Pipe } from "@angular/core";
+import { Observable } from 'rxjs';
 export class AppStateModel {
   public todos: string[];
 }
@@ -30,13 +31,13 @@ export class AppState {
 
   @Action(AppAddItemAction)
   addItem(ctx: StateContext<AppStateModel>, action: AppAddItemAction) {
-    console.log(action.payload);
-    this.appService.addTodoItem(action.payload);
-
-    const state = ctx.getState();
-    console.log(state.todos);
+   
+    const data = action.payload;
+    const state = ctx.getState().todos;
+   // console.log(data);
+    console.log(state);
     ctx.setState({
-      todos: [...state.todos]
+      todos: [...state, data], 
     });
   }
 }

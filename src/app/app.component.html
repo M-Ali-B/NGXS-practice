@@ -4,7 +4,7 @@
   {{todo}}
 </div>
 
-<div *ngFor="let todos of list">
+<div *ngFor="let todos of getList$ | async">
 {{todos}}
 
 </div>
