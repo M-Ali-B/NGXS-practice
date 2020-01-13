@@ -4,7 +4,8 @@
   {{todo}}
 </div>
 
-<div *ngFor="let todos of getList$ | async">
-{{todos}}
+<div *ngFor="let todos of getList$ | async; let i = index">
+<span>{{todos}} <button (click)="onDelete(i)">x</button></span>
+
 
 </div>

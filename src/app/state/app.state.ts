@@ -1,5 +1,5 @@
 import { State, Action, StateContext, Selector } from "@ngxs/store";
-import { AppFetchListAction, AppAddItemAction } from "./app.actions";
+import { AppFetchListAction, AppAddItemAction, AppRemoveItemAction } from "./app.actions";
 import { AppService } from "./app.service";
 import { Pipe } from "@angular/core";
 import { Observable } from 'rxjs';
@@ -40,4 +40,14 @@ export class AppState {
       todos: [...state, data], 
     });
   }
+
+@Action(AppRemoveItemAction)
+removeItem(ctx: StateContext<AppStateModel>, action: AppRemoveItemAction){
+  const index = action.payload;
+  const state = ctx.getState().todos;
+ console.log(state.splice(index,1));
+  // ctx.setState({
+    
+  // })
+}
 }
