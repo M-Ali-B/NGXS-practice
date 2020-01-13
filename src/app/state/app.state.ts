@@ -45,9 +45,10 @@ export class AppState {
 removeItem(ctx: StateContext<AppStateModel>, action: AppRemoveItemAction){
   const index = action.payload;
   const state = ctx.getState().todos;
- console.log(state.splice(index,1));
-  // ctx.setState({
-    
-  // })
+ state.splice(index,1);
+ console.log(state);
+  ctx.setState({
+  todos:   state
+  })
 }
 }
