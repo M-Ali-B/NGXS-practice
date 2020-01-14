@@ -5,8 +5,7 @@ import {
   AppRemoveItemAction
 } from "./app.actions";
 import { AppService } from "./app.service";
-import { Pipe } from "@angular/core";
-import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
 export class AppStateModel {
   public todos: string[];
 }
@@ -26,31 +25,53 @@ export class AppState {
   }
 
   @Action(AppFetchListAction)
-  fetchList(ctx: StateContext<AppStateModel>) {
-    const data = this.appService.getTodoList();
-    ctx.setState({
-      todos: data
-    });
+  fetchList({ getState, setState }: StateContext<AppStateModel>) {
+    return this.appService.getTodoList().pipe(
+      tap(result => {
+        //const state = getState();
+        setState({
+          todos: result
+        });
+      })
+    );
+
+    // const data = this.appService.getTodoList();
+    // ctx.setState({
+    //   todos: data
+    // });
   }
 
   @Action(AppAddItemAction)
-  addItem(ctx: StateContext<AppStateModel>, action: AppAddItemAction) {
+  addItem(
+    { getState, setState }: StateContext<AppStateModel>,
+    action: AppAddItemAction
+  ) {
     const itemName = action.payload;
 
-    const _data = this.appService.addTodoItem(itemName);
-
-    ctx.setState({
-      todos: _data
-    });
+    return this.appService.addTodoItem(itemName).pipe(
+      tap(result => {
+        const state = getState();
+        setState({
+          todos: [...state.todos, result]
+        });
+      })
+    );
   }
 
   @Action(AppRemoveItemAction)
-  removeItem(ctx: StateContext<AppStateModel>, action: AppRemoveItemAction) {
+  removeItem(
+    { getState, setState }: StateContext<AppStateModel>,
+    action: AppRemoveItemAction
+  ) {
     const index = action.payload;
-    const _data = this.appService.deleteTodoItem(index);
-
-    ctx.setState({
-      todos: _data
-    });
+    return this.appService.deleteTodoItem(index).pipe(
+      tap(result => {
+        const state = getState();
+        console.log("del" + state.todos);
+        const filteredArray = state.todos.splice(index, 1);
+        console.log(filteredArray);
+      
+      })
+    );
   }
 }

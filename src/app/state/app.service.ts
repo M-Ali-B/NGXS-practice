@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-
+import {of} from 'rxjs';
 @Injectable({
   providedIn: "root"
 })
@@ -8,18 +8,20 @@ export class AppService {
 
   constructor() {}
   getTodoList() {
-    return this.listOfTodos;
+    console.log(of(this.listOfTodos));
+    return of(this.listOfTodos);
+   
   }
 
   addTodoItem(item){
-    this.listOfTodos.push(item);
-  return this.listOfTodos;
+   // this.listOfTodos.push(item);
+  return of(item);
     
   }
 deleteTodoItem(index){
   console.log(index);
-  this.listOfTodos.splice(index,1);
+  // this.listOfTodos.splice(index,1);
 
-return this.listOfTodos;
+return of(index);
 }
 }
