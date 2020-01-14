@@ -11,4 +11,15 @@ export class AppService {
     return this.listOfTodos;
   }
 
+  addTodoItem(item){
+    this.listOfTodos.push(item);
+  return this.listOfTodos;
+    
+  }
+deleteTodoItem(index){
+  console.log(index);
+  this.listOfTodos.splice(index,1);
+
+return this.listOfTodos;
+}
 }

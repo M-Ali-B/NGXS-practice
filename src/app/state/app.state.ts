@@ -1,8 +1,12 @@
 import { State, Action, StateContext, Selector } from "@ngxs/store";
-import { AppFetchListAction, AppAddItemAction, AppRemoveItemAction } from "./app.actions";
+import {
+  AppFetchListAction,
+  AppAddItemAction,
+  AppRemoveItemAction
+} from "./app.actions";
 import { AppService } from "./app.service";
 import { Pipe } from "@angular/core";
-import { Observable } from 'rxjs';
+import { Observable } from "rxjs";
 export class AppStateModel {
   public todos: string[];
 }
@@ -31,24 +35,22 @@ export class AppState {
 
   @Action(AppAddItemAction)
   addItem(ctx: StateContext<AppStateModel>, action: AppAddItemAction) {
-   
-    const data = action.payload;
-    const state = ctx.getState().todos;
-   // console.log(data);
-    console.log(state);
+    const itemName = action.payload;
+
+    const _data = this.appService.addTodoItem(itemName);
+
     ctx.setState({
-      todos: [...state, data], 
+      todos: _data
     });
   }
 
-@Action(AppRemoveItemAction)
-removeItem(ctx: StateContext<AppStateModel>, action: AppRemoveItemAction){
-  const index = action.payload;
-  const state = ctx.getState().todos;
- state.splice(index,1);
- console.log(state);
-  ctx.setState({
-  todos:   state
-  })
-}
+  @Action(AppRemoveItemAction)
+  removeItem(ctx: StateContext<AppStateModel>, action: AppRemoveItemAction) {
+    const index = action.payload;
+    const _data = this.appService.deleteTodoItem(index);
+
+    ctx.setState({
+      todos: _data
+    });
+  }
 }
